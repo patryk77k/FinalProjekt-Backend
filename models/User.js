@@ -23,6 +23,10 @@ const User = new Schema({
     type: String,
     required: true,
   },
+  password: {
+    type: String,
+    required: true,
+  },
   task_date: {
     type: String,
     required: true,
