@@ -2,6 +2,8 @@ const Worker = require("../models/Worker");
 
 const getAllWorkers = async (req, res) => {
   try {
+    const workers = await Worker.find();
+    res.status(200).json(workers);
   } catch (err) {
     console.log(err);
     res.status(500).send(err.message);

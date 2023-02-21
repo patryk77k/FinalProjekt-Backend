@@ -8,7 +8,7 @@ const {
   deleteWorker,
 } = require("../controllers/workers");
 
-router.route("/workers").get(getAllWorkers).create(createWorker);
+router.route("/workers").get(getAllWorkers).post(createWorker);
 router
   .route("/workers/:id")
   .get(getSingleWorker)
