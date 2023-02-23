@@ -35,6 +35,14 @@ const Worker = new Schema({
     type: Number,
     required: true,
   },
+  address: {
+    type: String,
+    required: true,
+  },
+  plz: {
+    type: Number,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Worker", Worker);

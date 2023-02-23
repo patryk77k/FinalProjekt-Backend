@@ -2,9 +2,29 @@ const { findByIdAndUpdate } = require("../models/Worker");
 const Worker = require("../models/Worker");
 
 const getAllWorkers = async (req, res) => {
+  const { profession, plz, address } = req.query;
   try {
-    const workers = await Worker.find();
-    res.status(200).json(workers);
+    if (!profession && !plz && !address) {
+      const workers = await Worker.find();
+      res.status(200).json(workers);
+    } else if (profession) {
+      const workers = await Worker.find({
+        profession,
+      });
+      res.status(200).json(workers);
+    } else if (plz) {
+      const workers = await Worker.find({
+        plz,
+      });
+      res.status(200).json(workers);
+    } else if (address) {
+      const workers = await Worker.find({
+        address,
+      });
+      res.status(200).json(workers);
+    } else if (address && plz && profession) {
+      ///////
+    }
   } catch (err) {
     console.log(err);
     res.status(500).send(err.message);
@@ -12,7 +32,34 @@ const getAllWorkers = async (req, res) => {
 };
 
 const createWorker = async (req, res) => {
+  const {
+    first_name,
+    last_name,
+    login,
+    password,
+    profession,
+    experience,
+    availibility,
+    price,
+    plz,
+    address,
+  } = req.body;
+  console.log(req.body);
+
   try {
+    const newWorker = await Worker.create({
+      first_name,
+      last_name,
+      login,
+      password,
+      profession,
+      experience,
+      availibility,
+      price,
+      plz,
+      address,
+    });
+    res.status(201).json(newWorker);
   } catch (err) {
     console.log(err);
     res.status(500).send(err.message);

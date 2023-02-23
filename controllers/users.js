@@ -30,6 +30,7 @@ const createUser = async (req, res) => {
       task_date,
       task_size,
     });
+    res.status(201).json(newUser);
   } catch (err) {
     console.log(err);
     res.status(500).send(err.message);
