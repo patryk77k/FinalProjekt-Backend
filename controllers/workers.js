@@ -3,6 +3,7 @@ const Worker = require("../models/Worker");
 
 const getAllWorkers = async (req, res) => {
   const { profession, plz, address } = req.query;
+  console.log(req.query);
   try {
     if (!profession && !plz && !address) {
       const workers = await Worker.find();
@@ -23,7 +24,8 @@ const getAllWorkers = async (req, res) => {
       });
       res.status(200).json(workers);
     } else if (address && plz && profession) {
-      ///////
+      const workers = await Worker.find({ profession, plz, address });
+      res.status(200).json(workers);
     }
   } catch (err) {
     console.log(err);
