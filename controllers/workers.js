@@ -22,6 +22,7 @@ const getAllWorkers = async (req, res) => {
       const workers = await Worker.find({
         address,
       });
+      console.log(req.query);
       res.status(200).json(workers);
     } else if (address && plz && profession) {
       const workers = await Worker.find({ profession, plz, address });
