@@ -4,7 +4,7 @@ const Worker = require("../models/Worker");
 const getAllWorkers = async (req, res) => {
   const { profession, plz, address } = req.query;
 
-  // Check if any query parameters exist
+  //Check if any query parameters exist
   const query = {};
   if (profession) {
     query.profession = profession;
@@ -122,6 +122,8 @@ const updateWorker = async (req, res) => {
     experience,
     availibility,
     price,
+    address,
+    plz,
   } = req.body;
   try {
     const updatedWorker = await Worker.findByIdAndUpdate(
@@ -135,6 +137,8 @@ const updateWorker = async (req, res) => {
         experience,
         availibility,
         price,
+        address,
+        plz,
       },
       { new: true }
     );
