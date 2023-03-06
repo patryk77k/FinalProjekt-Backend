@@ -77,6 +77,7 @@ const createWorker = async (req, res) => {
     price,
     plz,
     address,
+    city,
   } = req.body;
   console.log(req.body);
 
@@ -92,6 +93,7 @@ const createWorker = async (req, res) => {
       price,
       plz,
       address,
+      city,
     });
     res.status(201).json(newWorker);
   } catch (err) {
@@ -124,6 +126,7 @@ const updateWorker = async (req, res) => {
     price,
     address,
     plz,
+    city,
   } = req.body;
   try {
     const updatedWorker = await Worker.findByIdAndUpdate(
@@ -139,6 +142,7 @@ const updateWorker = async (req, res) => {
         price,
         address,
         plz,
+        city,
       },
       { new: true }
     );

@@ -12,11 +12,8 @@ db();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use("/", usersRouter, workersRouter);
-
-app.get("/users", (req, res) => {
-  res.send("Hello from Backend");
-});
+app.use("/users", usersRouter);
+app.use("/workers", workersRouter);
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

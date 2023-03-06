@@ -18,6 +18,7 @@ const Worker = new Schema({
   password: {
     type: String,
     required: true,
+    // select: false,
   },
   profession: {
     type: String,
@@ -42,6 +43,14 @@ const Worker = new Schema({
   plz: {
     type: Number,
     required: true,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
+  gebuchte_termine: {
+    type: Array,
+    required: false,
   },
 });
 

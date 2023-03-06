@@ -8,9 +8,9 @@ const {
   deleteWorker,
 } = require("../controllers/workers");
 
-router.route("/workers").get(getAllWorkers).post(createWorker);
+router.route("/").get(getAllWorkers).post(createWorker);
 router
-  .route("/workers/:id")
+  .route("/:id")
   .get(getSingleWorker)
   .put(updateWorker)
   .delete(deleteWorker);
