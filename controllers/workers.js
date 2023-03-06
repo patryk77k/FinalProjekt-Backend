@@ -1,6 +1,7 @@
 const { findByIdAndUpdate } = require("../models/Worker");
 const Worker = require("../models/Worker");
 
+//@DEC                           get all workers
 const getAllWorkers = async (req, res) => {
   const { profession, plz, address } = req.query;
 
@@ -65,6 +66,7 @@ const getAllWorkers = async (req, res) => {
 //   }
 // };
 
+//@DEC                           Created single worker
 const createWorker = async (req, res) => {
   const {
     first_name,
@@ -80,6 +82,13 @@ const createWorker = async (req, res) => {
     city,
   } = req.body;
   console.log(req.body);
+
+  const userExists = await Worker.findOne({ first_name });
+
+  if (userExists) {
+    res.status(400);
+    throw new Error("User already exists");
+  }
 
   try {
     const newWorker = await Worker.create({
@@ -102,6 +111,7 @@ const createWorker = async (req, res) => {
   }
 };
 
+//@DEC                           Get single worker
 const getSingleWorker = async (req, res) => {
   const { id } = req.params;
   try {
@@ -113,46 +123,96 @@ const getSingleWorker = async (req, res) => {
   }
 };
 
+//@DEC                           Update single worker
 const updateWorker = async (req, res) => {
-  const { id } = req.params;
-  const {
-    first_name,
-    last_name,
-    login,
-    password,
-    profession,
-    experience,
-    availibility,
-    price,
-    address,
-    plz,
-    city,
-  } = req.body;
   try {
-    const updatedWorker = await Worker.findByIdAndUpdate(
-      id,
-      {
-        first_name,
-        last_name,
-        login,
-        password,
-        profession,
-        experience,
-        availibility,
-        price,
-        address,
-        plz,
-        city,
-      },
-      { new: true }
-    );
-    res.status(200).json(`${updatedWorker.first_name} ist updated`);
-  } catch (err) {
-    console.log(err);
-    res.status(500).send(err.message);
+    const { id } = req.params;
+    let worker = await Worker.findById(id);
+
+    console.log(worker);
+
+    // const {
+    //     first_name,
+    //     last_name,
+    //     login,
+    //     password,
+    //     profession,
+    //     experience,
+    //     availibility,
+    //     price,
+    //     address,
+    //     plz,
+    //     city,
+    //     gebuchte_termine,
+    //   } = req.body;
+
+    if (worker) {
+      worker.first_name = req.body.first_name;
+      worker.last_name = req.body.last_name;
+      worker.login = req.body.login;
+      worker.password = req.body.password;
+      worker.profession = req.body.profession;
+      worker.experience = req.body.experience;
+      worker.availibility = req.body.availibility;
+      worker.price = req.body.price;
+      worker.address = req.body.address;
+      worker.plz = req.body.plz;
+      worker.city = req.body.city;
+      worker.gebuchte_termine = [
+        ...worker?.gebuchte_termine,
+        ...req.body.gebuchte_termine,
+      ];
+
+      const updatedWorker = await worker.save();
+      res.status(201).json(updateWorker);
+      console.log("Workder was successfuly updated!");
+    }
+  } catch (error) {
+    console.error(error.message);
   }
+
+  // const { id } = req.params;
+  // const {
+  //   first_name,
+  //   last_name,
+  //   login,
+  //   password,
+  //   profession,
+  //   experience,
+  //   availibility,
+  //   price,
+  //   address,
+  //   plz,
+  //   city,
+  //   gebuchte_termine,
+  // } = req.body;
+  // try {
+  //   const updatedWorker = await Worker.findByIdAndUpdate(
+  //     id,
+  //     {
+  //       first_name,
+  //       last_name,
+  //       login,
+  //       password,
+  //       profession,
+  //       experience,
+  //       availibility,
+  //       price,
+  //       address,
+  //       plz,
+  //       city,
+  //       gebuchte_termine,
+  //     },
+  //     { new: true }
+  //   );
+  //   res.status(200).json(`${updatedWorker.first_name} ist updated`);
+  // } catch (err) {
+  //   console.log(err);
+  //   res.status(500).send(err.message);
+  // }
 };
 
+//@DEC                           Delete single worker
 const deleteWorker = async (req, res) => {
   const { id } = req.params;
   try {
