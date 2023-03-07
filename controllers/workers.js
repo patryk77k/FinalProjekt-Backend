@@ -147,21 +147,46 @@ const updateWorker = async (req, res) => {
     //   } = req.body;
 
     if (worker) {
-      worker.first_name = req.body.first_name;
-      worker.last_name = req.body.last_name;
-      worker.login = req.body.login;
-      worker.password = req.body.password;
-      worker.profession = req.body.profession;
-      worker.experience = req.body.experience;
-      worker.availibility = req.body.availibility;
-      worker.price = req.body.price;
-      worker.address = req.body.address;
-      worker.plz = req.body.plz;
-      worker.city = req.body.city;
-      worker.gebuchte_termine = [
-        ...worker?.gebuchte_termine,
-        ...req.body.gebuchte_termine,
-      ];
+      if (req.body.first_name) {
+        worker.first_name = req.body.first_name;  
+      }
+      if (req.body.last_name) {
+        worker.last_name = req.body.last_name;
+      }
+      if (req.body.login) {
+        worker.login = req.body.login;
+      }
+      if (req.body.password) {
+        worker.password = req.body.password;
+      }
+      if (req.body.profession) {
+        worker.profession = req.body.profession;
+      }
+      if (req.body.experience) {
+        worker.experience = req.body.experience;
+      }
+      if (req.body.availibility) {
+        worker.availibility = req.body.availibility;
+      }
+      if (req.body.price) {
+        worker.price = req.body.price;
+      }
+      if (req.body.address) {
+        worker.address = req.body.address;
+      }
+      if (req.body.plz) {
+        worker.plz = req.body.plz;
+      }
+      if (req.body.city) {
+        worker.city = req.body.city;
+      }
+      if (req.body.gebuchte_termine) {
+        worker.gebuchte_termine = [
+       ...worker?.gebuchte_termine,
+       ...req.body.gebuchte_termine,
+     ];
+      }
+      
 
       const updatedWorker = await worker.save();
       res.status(201).json(updateWorker);
