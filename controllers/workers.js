@@ -129,22 +129,6 @@ const updateWorker = async (req, res) => {
     const { id } = req.params;
     let worker = await Worker.findById(id);
 
-    console.log(worker);
-
-    // const {
-    //     first_name,
-    //     last_name,
-    //     login,
-    //     password,
-    //     profession,
-    //     experience,
-    //     availibility,
-    //     price,
-    //     address,
-    //     plz,
-    //     city,
-    //     gebuchte_termine,
-    //   } = req.body;
 
     if (worker) {
       if (req.body.first_name) {

@@ -14,5 +14,6 @@ router
   .get(getSingleWorker)
   .put(updateWorker)
   .delete(deleteWorker);
+router.route("/:id/date").get(getSingleWorker);
 
 module.exports = router;
